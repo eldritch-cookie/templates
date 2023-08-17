@@ -22,7 +22,7 @@
         # The usual flake attributes can be defined here, including system-
         # agnostic ones like nixosModule and system-enumerating ones, although
         # those are more easily expressed in perSystem.
-        templates.default = {path = ./starter/haskell; description = "a template for a small haskell project"};
+        templates.default = {path = ./starter/haskell; description = "a template for a small haskell project";};
       };
     };
 }
