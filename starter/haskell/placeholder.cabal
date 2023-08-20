@@ -54,7 +54,7 @@ common deps
     ghc-options: -Wall
     build-depends: base
     default-extensions: 
-      OverloadedStringss
+      OverloadedStrings
       OverloadedRecordDot
       DuplicateRecordFields
       NoFieldSelectors
@@ -71,7 +71,6 @@ executable placeholder
     build-depends:
         placeholder
     hs-source-dirs:   app
-    default-language: GHC2021
 
 test-suite placeholder-test
     import:           deps
