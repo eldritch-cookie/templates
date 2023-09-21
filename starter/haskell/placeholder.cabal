@@ -58,6 +58,16 @@ common deps
       OverloadedRecordDot
       DuplicateRecordFields
       NoFieldSelectors
+      NoStarIsType
+      NoCUSKs
+      TypeOperators
+      ScopedTypeVariables
+      DataKinds
+      FunctionalDependencies
+      TypeFamilyDependencies
+      QuantifiedConstraints
+      DerivingStrategies
+      DerivingVia
     default-language: GHC2021
 
 library
