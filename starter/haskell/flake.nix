@@ -36,6 +36,7 @@
           typos.enable = true;
         };
         haskellProjects.default = {
+          basePackages = pkgs.haskell.packages.ghc96;
           
         };
       };
