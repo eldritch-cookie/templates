@@ -91,6 +91,7 @@ test-suite placeholder-test
         tasty
       , tasty-quickcheck
       , tasty-hunit
+      , tasty-golden
       , QuickCheck
       , placeholder
     build-tool-depends:
