@@ -93,3 +93,6 @@ test-suite placeholder-test
       , tasty-hunit
       , QuickCheck
       , placeholder
+    build-tool-depends:
+      tasty-discover:tasty-discover
+
