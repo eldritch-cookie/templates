@@ -24,6 +24,7 @@
 
         # Equivalent to  inputs'.nixpkgs.legacyPackages.hello;
         treefmt.programs = {
+          alejandra.enable = true;
           cabal-fmt.enable = true;
           ormolu = {
             enable = true;
