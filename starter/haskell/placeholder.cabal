@@ -55,6 +55,7 @@ common deps
     build-depends: base
     default-extensions: 
       OverloadedStrings
+      OverloadedLists
       OverloadedRecordDot
       DuplicateRecordFields
       NoFieldSelectors
