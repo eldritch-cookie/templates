@@ -3,7 +3,7 @@
 
   inputs = {
     flake-parts.url = "github:hercules-ci/flake-parts";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/haskell-updates";
     treefmt-nix.url = "github:numtide/treefmt-nix";
     pre-commit-hooks-nix.url = "github:cachix/pre-commit-hooks.nix";
     haskell-flake.url = "github:srid/haskell-flake";
@@ -37,7 +37,6 @@
           typos.enable = true;
         };
         haskellProjects.default = {
-          basePackages = pkgs.haskell.packages.ghc96;
           
         };
       };
