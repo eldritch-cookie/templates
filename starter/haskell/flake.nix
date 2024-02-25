@@ -37,7 +37,12 @@
           typos.enable = true;
         };
         haskellProjects.default = {
-          
+          devShell = {
+            tools = hp: with hp; { 
+              fast-tags = fast-tags;
+              haskell-dap = haskell-dap;
+            };
+          };
         };
       };
       flake = {
