@@ -2,10 +2,19 @@
   description = "Description for the project";
 
   inputs = {
-    flake-parts.url = "github:hercules-ci/flake-parts";
     nixpkgs.url = "github:NixOS/nixpkgs/haskell-updates";
-    treefmt-nix.url = "github:numtide/treefmt-nix";
-    pre-commit-hooks-nix.url = "github:cachix/pre-commit-hooks.nix";
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    pre-commit-hooks-nix = {
+      url = "github:cachix/pre-commit-hooks.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     haskell-flake.url = "github:srid/haskell-flake";
   };
 
