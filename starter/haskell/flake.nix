@@ -15,18 +15,34 @@
       url = "github:cachix/pre-commit-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    devshell = {
+      url = "github:numtide/devshell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     haskell-flake.url = "github:srid/haskell-flake";
   };
 
-  outputs = inputs@{ self, flake-parts, ... }:
-    flake-parts.lib.mkFlake { inherit inputs; } {
+  outputs = inputs @ {
+    self,
+    flake-parts,
+    ...
+  }:
+    flake-parts.lib.mkFlake {inherit inputs;} {
       imports = [
         inputs.treefmt-nix.flakeModule
         inputs.pre-commit-hooks-nix.flakeModule
         inputs.haskell-flake.flakeModule
+        inputs.devshell.flakeModule
       ];
-      systems = [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin" ];
-      perSystem = { config, self', inputs', pkgs, system, ... }: {
+      systems = ["x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin"];
+      perSystem = {
+        config,
+        self',
+        inputs',
+        pkgs,
+        system,
+        ...
+      }: {
         # Per-system attributes can be defined here. The self' and inputs'
         # module parameters provide easy access to attributes of the same
         # system.
@@ -46,11 +62,21 @@
           typos.enable = true;
         };
         haskellProjects.default = {
+          basePackages = pkgs.haskell.packages.ghc98;
+          autoWire = ["checks" "apps" "packages"];
+          defaults.devShell.tools = hp: {inherit (hp) cabal-install;};
           devShell = {
-            tools = hp: with hp; { 
-              fast-tags = fast-tags;
-              haskell-dap = haskell-dap;
-            };
+            tools = hp:
+              with hp; {
+                fast-tags = fast-tags;
+                haskell-dap = haskell-dap;
+              };
+          };
+        };
+        devshells.default = {
+          devshell = {
+            packagesFrom = [config.haskellProjects.default.outputs.devShell];
+            startup.pre-commit.text = config.pre-commit.installationScript;
           };
         };
       };
