@@ -57,9 +57,16 @@
           };
         };
         treefmt.projectRootFile = "flake.nix";
-        pre-commit.settings.hooks = {
-          treefmt.enable = true;
-          typos.enable = true;
+        pre-commit.settings = {
+          hooks = {
+            treefmt.enable = true;
+            typos.enable = true;
+          };
+          settings = {
+            typos = {
+              ignored-words = ["wheres"];
+            };
+          };
         };
         haskellProjects.default = {
           basePackages = pkgs.haskell.packages.ghc98;
