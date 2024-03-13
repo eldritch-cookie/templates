@@ -61,6 +61,8 @@
           hooks = {
             treefmt.enable = true;
             typos.enable = true;
+            commitzen.enable = true;
+            editoronfig-checker = true;
           };
           settings = {
             typos = {
