@@ -62,7 +62,7 @@
             treefmt.enable = true;
             typos.enable = true;
             commitizen.enable = true;
-            editorconfig-checker = true;
+            editorconfig-checker.enable = true;
           };
           settings = {
             typos = {
