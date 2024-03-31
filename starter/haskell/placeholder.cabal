@@ -51,7 +51,7 @@ extra-doc-files:    CHANGELOG.md
 -- extra-source-files:
 
 common deps
-    ghc-options: -Wall
+    ghc-options: -Wall -Wunused-packages -Wcompat
     build-depends: base
     default-extensions: 
       OverloadedStrings

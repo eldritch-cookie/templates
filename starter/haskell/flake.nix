@@ -2,7 +2,7 @@
   description = "Description for the project";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/haskell-updates";
+    nixpkgs.url = "github:NixOS/nixpkgs";
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
@@ -60,13 +60,13 @@
         pre-commit.settings = {
           hooks = {
             treefmt.enable = true;
-            typos.enable = true;
             commitizen.enable = true;
             editorconfig-checker.enable = true;
-          };
-          settings = {
             typos = {
-              ignored-words = ["wheres"];
+              enable = true;
+              settings = {
+                ignored-words = ["wheres"];
+              };
             };
           };
         };
