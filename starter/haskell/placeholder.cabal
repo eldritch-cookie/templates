@@ -51,7 +51,7 @@ extra-doc-files:    CHANGELOG.md
 -- extra-source-files:
 
 common deps
-    ghc-options: -Wall -Wunused-packages -Wcompat
+    ghc-options: -Wall -Wcompat
     build-depends: base
     default-extensions: 
       OverloadedStrings
@@ -71,6 +71,24 @@ common deps
       DerivingVia
     default-language: GHC2021
 
+common tdeps
+    import: deps
+    ghc-options: -F -pgmF=tasty-autocollect
+    build-tool-depends:
+      tasty-autocollect:tasty-autocollect
+    build-depends:
+        tasty
+      , tasty-autocollect
+      , tasty-hunit
+      , tasty-bench
+      , tasty-quickcheck
+      , QuickCheck
+      , tasty-inspection-testing
+      , inspection-testing
+      , tasty-dejafu
+      , dejafu
+      , tasty-coverage
+
 library
     import:           deps
     exposed-modules:  MyLib
@@ -84,17 +102,11 @@ executable placeholder
     hs-source-dirs:   app
 
 test-suite placeholder-test
-    import:           deps
+    import:           tdeps
     type:             exitcode-stdio-1.0
     hs-source-dirs:   test
     main-is:          Main.hs
-    build-depends:
-        tasty
-      , tasty-quickcheck
-      , tasty-hunit
-      , tasty-golden
-      , QuickCheck
-      , placeholder
+        placeholder
     build-tool-depends:
       tasty-discover:tasty-discover
 

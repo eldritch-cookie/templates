@@ -1,1 +1,3 @@
-{-# OPTIONS_GHC -F -pgmF tasty-discover #-}
+{- AUTOCOLLECT.MAIN
+  ingredients = [Test.Tasty.Bench.benchIngredients]
+-}
