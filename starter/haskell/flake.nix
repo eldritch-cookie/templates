@@ -62,12 +62,6 @@
             treefmt.enable = true;
             commitizen.enable = true;
             editorconfig-checker.enable = true;
-            typos = {
-              enable = true;
-              settings = {
-                ignored-words = ["wheres"];
-              };
-            };
           };
         };
         haskellProjects.default = {

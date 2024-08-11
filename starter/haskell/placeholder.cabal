@@ -69,6 +69,8 @@ common deps
       QuantifiedConstraints
       DerivingStrategies
       DerivingVia
+      LambdaCase
+      PatternSynonyms
     default-language: GHC2021
 
 common tdeps
