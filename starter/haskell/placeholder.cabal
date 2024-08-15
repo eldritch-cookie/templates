@@ -108,6 +108,7 @@ test-suite placeholder-test
     type:             exitcode-stdio-1.0
     hs-source-dirs:   test
     main-is:          Main.hs
+    build-depends:
         placeholder
     build-tool-depends:
       tasty-discover:tasty-discover
