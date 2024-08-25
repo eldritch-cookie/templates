@@ -15,10 +15,6 @@
       url = "github:cachix/pre-commit-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    devshell = {
-      url = "github:numtide/devshell";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     haskell-flake.url = "github:srid/haskell-flake";
   };
 
@@ -32,7 +28,6 @@
         inputs.treefmt-nix.flakeModule
         inputs.pre-commit-hooks-nix.flakeModule
         inputs.haskell-flake.flakeModule
-        inputs.devshell.flakeModule
       ];
       systems = ["x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin"];
       perSystem = {
@@ -42,12 +37,18 @@
         pkgs,
         system,
         ...
-      }: {
-        # Per-system attributes can be defined here. The self' and inputs'
-        # module parameters provide easy access to attributes of the same
-        # system.
-
-        # Equivalent to  inputs'.nixpkgs.legacyPackages.hello;
+      }: let
+        hprojs = hpkgs: overlay: {
+          basePackages = hpkgs;
+          otherOverlays = [overlay];
+          autoWire = ["checks" "devShells" "packages"];
+          devShell = {
+            tools = hp: {inherit (hp) fast-tags haskell-dap;};
+            mkShellArgs.shellHook = config.pre-commit.installationScript;
+          };
+        };
+        id2 = self: super: {};
+      in {
         treefmt.programs = {
           alejandra.enable = true;
           cabal-fmt.enable = true;
@@ -64,29 +65,11 @@
             editorconfig-checker.enable = true;
           };
         };
-        haskellProjects.default = {
-          basePackages = pkgs.haskell.packages.ghc98;
-          autoWire = ["checks" "apps" "packages"];
-          defaults.devShell.tools = hp: {inherit (hp) cabal-install;};
-          devShell = {
-            tools = hp:
-              with hp; {
-                fast-tags = fast-tags;
-                haskell-dap = haskell-dap;
-              };
-          };
-        };
-        devshells.default = {
-          devshell = {
-            packagesFrom = [config.haskellProjects.default.outputs.devShell];
-            startup.pre-commit.text = config.pre-commit.installationScript;
-          };
-        };
+        haskellProjects.default = hprojs pkgs.haskellPackages id2;
+        haskellProjects.ghc98 = hprojs pkgs.haskell.packages.ghc98 id2;
+        haskellProjects.ghc910 = hprojs pkgs.haskell.packages.ghc910 id2;
       };
       flake = {
-        # The usual flake attributes can be defined here, including system-
-        # agnostic ones like nixosModule and system-enumerating ones, although
-        # those are more easily expressed in perSystem.
       };
     };
 }
