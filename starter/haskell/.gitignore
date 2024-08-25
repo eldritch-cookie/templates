@@ -1,3 +1,4 @@
 dist-newstyle/
 .direnv/
 .pre-commit-config.yaml
+*.tix
