@@ -43,7 +43,6 @@
       }: {
         treefmt.programs = {
           alejandra.enable = true;
-          stylua.enable = true;
         };
         treefmt.settings.formatter = {
           texfmt = {
