@@ -41,8 +41,7 @@ author:          Eldritch Cookie
 -- An email address to which users can send suggestions, bug reports, and patches.
 maintainer:      eldritch.cookie@disroot.org
 
--- A copyright notice.
--- copyright:
+-- DO NOT modify this custom build types are essentially deprecated and will be removed in the future.
 build-type:      Simple
 
 -- Extra doc files to be distributed with the package, such as a CHANGELOG or a README.
@@ -52,18 +51,28 @@ extra-doc-files: CHANGELOG.md
 -- extra-source-files:
 
 common deps
-  ghc-options:        -Wall -Wcompat -Werror=-Wincomplete-patterns
-  build-depends:      base
+  ghc-options:
+    -Wall -Wcompat -Wmissing-kind-signatures
+    -Werror=-Wincomplete-patterns -Werror=-Wmissing-methods
+
+  build-depends:
+    , base
+    , bytestring
+    , containers
+    , deepseq
+    , exceptions
+    , stm
+    , text
+    , transformers
+
   default-extensions:
     DataKinds
-    DerivingStrategies
     DerivingVia
     DuplicateRecordFields
     FunctionalDependencies
     LambdaCase
-    LambdaCase
-    NoCUSKs
     NoFieldSelectors
+    NoListTuplePuns
     NoStarIsType
     OverloadedLists
     OverloadedRecordDot
@@ -72,7 +81,6 @@ common deps
     QuantifiedConstraints
     ScopedTypeVariables
     TypeFamilyDependencies
-    TypeOperators
 
   default-language:   GHC2021
 
