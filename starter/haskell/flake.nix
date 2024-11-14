@@ -43,9 +43,10 @@
           otherOverlays = [overlay];
           autoWire = ["checks" "devShells" "packages"];
           devShell = {
-            tools = hp: {inherit (hp) fast-tags haskell-dap;};
+            tools = hp: {inherit (hp)  haskell-dap;};
             mkShellArgs.shellHook = config.pre-commit.installationScript;
           };
+          defaults.devShell.tools = hp: {inherit (hp) cabal-install haskell-language-server ghcide;};
         };
         id2 = self: super: {};
       in {
@@ -65,9 +66,9 @@
             editorconfig-checker.enable = true;
           };
         };
-        haskellProjects.default = hprojs pkgs.haskellPackages id2;
+        haskellProjects.default = hprojs pkgs.haskell.packages.ghc910 id2;
         haskellProjects.ghc98 = hprojs pkgs.haskell.packages.ghc98 id2;
-        haskellProjects.ghc910 = hprojs pkgs.haskell.packages.ghc910 id2;
+        haskellProjects.ghc96 = hprojs pkgs.haskell.packages.ghc96 id2;
       };
       flake = {
       };
