@@ -21,47 +21,48 @@
     };
   };
 
-  outputs = inputs @ {
-    self,
-    flake-parts,
-    ...
-  }:
-    flake-parts.lib.mkFlake {inherit inputs;} {
+  outputs =
+    inputs@{ self, flake-parts, ... }:
+    flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
         inputs.treefmt-nix.flakeModule
         inputs.pre-commit-hooks-nix.flakeModule
         inputs.devshell.flakeModule
       ];
-      systems = ["x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin"];
-      perSystem = {
-        config,
-        self',
-        inputs',
-        pkgs,
-        system,
-        ...
-      }: {
-        treefmt.programs = {
-          alejandra.enable = true;
-        };
-        treefmt.settings.formatter = {
-          texfmt = {
-            includes = "**/*.tex";
-            command = "texfmt";
+      systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+        "aarch64-darwin"
+        "x86_64-darwin"
+      ];
+      perSystem =
+        {
+          config,
+          self',
+          inputs',
+          pkgs,
+          system,
+          ...
+        }:
+        {
+          treefmt.programs = {
+            alejandra.enable = true;
+          };
+          treefmt.settings.formatter = {
+            texfmt = {
+              includes = "**/*.tex";
+              command = "texfmt";
+            };
+          };
+          treefmt.projectRootFile = "flake.nix";
+          pre-commit.settings.hooks = {
+            treefmt.enable = true;
+            typos.enable = true;
+          };
+          devshells.default = {
+            packages = with pkgs; [ texlive.scheme-context ];
           };
         };
-        treefmt.projectRootFile = "flake.nix";
-        pre-commit.settings.hooks = {
-          treefmt.enable = true;
-          typos.enable = true;
-        };
-        devshells.default = {
-          packages = with pkgs; [
-            texlive.scheme-context
-          ];
-        };
-      };
-      flake = {
-      };
+      flake = { };
     };
 }

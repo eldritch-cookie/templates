@@ -66,11 +66,9 @@ common deps
     , transformers
 
   default-extensions:
-    DataKinds
     DerivingVia
     DuplicateRecordFields
     FunctionalDependencies
-    LambdaCase
     NoFieldSelectors
     NoListTuplePuns
     NoStarIsType
@@ -82,28 +80,26 @@ common deps
     ScopedTypeVariables
     TypeFamilyDependencies
 
-  default-language:   GHC2021
+  default-language:   GHC2024
 
 common tdeps
   import:             deps
   ghc-options:        -F -pgmF=tasty-autocollect
   build-tool-depends: tasty-autocollect:tasty-autocollect
   build-depends:
-    , dejafu
     , inspection-testing
     , QuickCheck
     , tasty
     , tasty-autocollect
     , tasty-bench
     , tasty-coverage
-    , tasty-dejafu
     , tasty-hunit
     , tasty-inspection-testing
     , tasty-quickcheck
 
 library
   import:          deps
-  exposed-modules: MyLib
+  exposed-modules: placeholder
   hs-source-dirs:  src
 
 executable placeholder

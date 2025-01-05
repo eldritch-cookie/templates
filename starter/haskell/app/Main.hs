@@ -1,6 +1,7 @@
 module Main where
 
+import Prelude.Experimnental
 
-main :: IO ()
+main :: IO Unit
 main = do
   putStrLn "Hello, Haskell!"
