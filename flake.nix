@@ -35,7 +35,6 @@
         let
           hp = pkgs.haskell.packages.ghc910.extend (
             hfinal: hprev: {
-              #logging-facade = pkgs.haskell.lib.dontCheck hprev.logging-facade;
               primitive = hprev.primitive_0_9_0_0;
               th-abstraction = hprev.th-abstraction_0_7_0_0;
               fourmolu = pkgs.haskell.lib.dontCheck hprev.fourmolu_0_16_2_0;
