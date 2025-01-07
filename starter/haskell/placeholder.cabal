@@ -99,7 +99,7 @@ common tdeps
 
 library
   import:          deps
-  exposed-modules: placeholder
+  exposed-modules: Placeholder
   hs-source-dirs:  src
 
 executable placeholder

@@ -35,21 +35,6 @@
         let
           hp = pkgs.haskell.packages.ghc910.extend (
             hfinal: hprev: {
-              primitive = hprev.primitive_0_9_0_0;
-              th-abstraction = hprev.th-abstraction_0_7_0_0;
-              fourmolu = pkgs.haskell.lib.dontCheck hprev.fourmolu_0_16_2_0;
-              base-orphans = pkgs.haskell.lib.dontCheck hprev.base-orphans;
-              call-stack = pkgs.haskell.lib.dontCheck hprev.call-stack;
-              time-compat = pkgs.haskell.lib.doJailbreak hprev.time-compat;
-              uuid-types = hprev.uuid-types_1_0_6;
-              scientific = hprev.scientific_0_3_8_0;
-              unordered-containers = pkgs.haskell.lib.dontCheck hprev.unordered-containers;
-              quickcheck-instances = hprev.quickcheck-instances_0_3_31;
-              aeson = pkgs.haskell.lib.dontCheck hprev.aeson_2_2_3_0;
-              integer-conversion = hprev.integer-conversion_0_1_1;
-              hashable = pkgs.haskell.lib.dontCheck (hprev.hashable_1_5_0_0.override { os-string = null; });
-              strict = hprev.strict_0_5_1;
-              witherable = hprev.witherable_0_5;
             }
           );
         in
