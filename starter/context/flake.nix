@@ -11,8 +11,8 @@
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    pre-commit-hooks-nix = {
-      url = "github:cachix/pre-commit-hooks.nix";
+    git-hooks-nix = {
+      url = "github:cachix/git-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     devshell = {
@@ -26,8 +26,7 @@
     flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
         inputs.treefmt-nix.flakeModule
-        inputs.pre-commit-hooks-nix.flakeModule
-        inputs.devshell.flakeModule
+        inputs.git-hooks-nix.flakeModule
       ];
       systems = [
         "x86_64-linux"
@@ -46,21 +45,17 @@
         }:
         {
           treefmt.programs = {
-            alejandra.enable = true;
-          };
-          treefmt.settings.formatter = {
-            texfmt = {
-              includes = "**/*.tex";
-              command = "texfmt";
-            };
+            nixfmt-rfc-style.enable = true;
+            texfmt.enable = true;
           };
           treefmt.projectRootFile = "flake.nix";
           pre-commit.settings.hooks = {
             treefmt.enable = true;
             typos.enable = true;
           };
-          devshells.default = {
-            packages = with pkgs; [ texlive.scheme-context ];
+          devShells.default = pkgs.mkShellNoCC {
+            packages = with pkgs; [ texliveConTeXt ];
+            shellHook = config.git-hooks.installationScript;
           };
         };
       flake = { };
