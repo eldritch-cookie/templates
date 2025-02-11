@@ -1,0 +1,12 @@
+{
+  moduleLocation,
+  options,
+  specialArgs,
+  flake-parts-lib,
+  inputs,
+  self,
+  config,
+  lib,
+}:
+{
+}
