@@ -66,7 +66,7 @@
             cabal-fmt.enable = true;
             fourmolu = {
               enable = true;
-              package = hu-pkgs.haskell.packages.ghc912;
+              package = hu-pkgs.haskell.packages.ghc912.fourmolu;
             };
           };
           treefmt.projectRootFile = "flake.nix";
