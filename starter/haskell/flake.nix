@@ -2,7 +2,8 @@
   description = "Description for the project";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "nixpkgs";
+    hu-nixpkgs.url = "github:NixOS/nixpkgs/haskell-updates";
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
@@ -57,24 +58,26 @@
             defaults.devShell.tools = hp: { inherit (hp) cabal-install haskell-language-server ghcide; };
           };
           id2 = self: super: { };
+          hu-pkgs = import inputs.hu-nixpkgs { inherit system; };
         in
         {
           treefmt.programs = {
-            nixfmt-rfc-style.enable = true;
+            nixfmt.enable = true;
             cabal-fmt.enable = true;
-            fourmolu.enable = true;
+            fourmolu = {
+              enable = true;
+              package = hu-pkgs.haskell.packages.ghc912;
+            };
           };
           treefmt.projectRootFile = "flake.nix";
           pre-commit.settings = {
             hooks = {
               treefmt.enable = true;
-              commitizen.enable = true;
               editorconfig-checker.enable = true;
             };
           };
-          haskellProjects.ghc96 = hprojs pkgs.haskell.packages.ghc96 id2;
-          haskellProjects.default = hprojs pkgs.haskell.packages.ghc910 id2;
-          haskellProjects.ghc912 = hprojs pkgs.haskell.packages.ghc912 id2;
+          haskellProjects.ghc910 = hprojs pkgs.haskell.packages.ghc910 id2;
+          haskellProjects.default = hprojs hu-pkgs.haskell.packages.ghc912 id2;
         };
       flake = { };
     };
