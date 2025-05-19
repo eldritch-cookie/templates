@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "nixpkgs";
+    hu-nixpkgs.url = "github:NixOS/nixpkgs/haskell-updates";
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
@@ -11,13 +12,14 @@
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    hu-nixpkgs.url = "github:NixOS/nixpkgs/haskell-updates";
   };
 
   outputs =
     inputs@{ self, flake-parts, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } {
-      imports = [ inputs.treefmt-nix.flakeModule ];
+      imports = [
+        inputs.treefmt-nix.flakeModule
+      ];
       systems = [
         "x86_64-linux"
         "aarch64-linux"
@@ -34,7 +36,7 @@
           ...
         }:
         let
-          # TODO: upstream this stuff
+          # TODO: change to normal nixpkgs when it updates
           hpkgs = import inputs.hu-nixpkgs { inherit system; };
         in
         {
@@ -55,9 +57,15 @@
           };
         };
       flake = {
-        templates.default = {
-          path = ./starter/haskell;
-          description = "a template for a small haskell project";
+        templates = {
+          default = {
+            path = ./starter/haskell;
+            description = "a template for a small haskell project";
+          };
+          context = {
+            path = ./starter/context;
+            description = "a template for a small context project";
+          };
         };
       };
     };

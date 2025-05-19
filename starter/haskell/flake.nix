@@ -1,5 +1,6 @@
 {
   description = "Description for the project";
+  nixConfig.allow-import-from-derivation = true;
 
   inputs = {
     nixpkgs.url = "nixpkgs";
