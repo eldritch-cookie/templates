@@ -63,12 +63,18 @@
         in
         {
           treefmt.programs = {
-            nixfmt.enable = true;
+            # keep-sorted start
+
             cabal-fmt.enable = true;
             fourmolu = {
               enable = true;
               package = hu-pkgs.haskell.packages.ghc912.fourmolu;
+              keep-sorted.enable = true;
+              nixfmt.enable = true;
             };
+            # keep-sorted end
+            # jsonfmt.enable = true;
+            # just.enable = true;
           };
           treefmt.projectRootFile = "flake.nix";
           pre-commit.settings = {

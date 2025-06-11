@@ -1,1 +1,9 @@
-{lib,config,options,_class,specialArgs,modulesPath}: { }
+{
+  lib,
+  config,
+  options,
+  _class,
+  specialArgs,
+  modulesPath,
+}:
+{ }

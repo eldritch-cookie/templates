@@ -15,10 +15,6 @@
       url = "github:cachix/git-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    devshell = {
-      url = "github:numtide/devshell";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs =
@@ -45,13 +41,13 @@
         }:
         {
           treefmt.programs = {
-            nixfmt-rfc-style.enable = true;
+            nixfmt.enable = true;
+            statix.enable = true;
             texfmt.enable = true;
           };
-          treefmt.projectRootFile = "flake.nix";
+          #treefmt.projectRootFile = "flake.nix";
           pre-commit.settings.hooks = {
             treefmt.enable = true;
-            typos.enable = true;
           };
           devShells.default = pkgs.mkShellNoCC {
             packages = with pkgs; [ texliveConTeXt ];

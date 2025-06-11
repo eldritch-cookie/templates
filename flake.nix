@@ -2,7 +2,7 @@
   description = "My Personal Templates";
 
   inputs = {
-    nixpkgs.url = "nixpkgs";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     hu-nixpkgs.url = "github:NixOS/nixpkgs/haskell-updates";
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
@@ -35,24 +35,18 @@
           system,
           ...
         }:
-        let
-          # TODO: change to normal nixpkgs when it updates
-          hpkgs = import inputs.hu-nixpkgs { inherit system; };
-        in
         {
           treefmt = {
-            projectRootFile = "flake.nix";
             programs = {
               nixfmt.enable = true;
+              statix.enable = true;
               cabal-fmt.enable = true;
               fourmolu = {
                 enable = true;
-                package = hpkgs.haskell.packages.ghc912.fourmolu;
+                package = pkgs.haskell.packages.ghc912.fourmolu;
               };
               yamlfmt.enable = true;
-            };
-            settings = {
-              global.excludes = [ ".git/" ];
+              keep-sorted.enable = true;
             };
           };
         };
