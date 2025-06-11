@@ -3,7 +3,7 @@
   nixConfig.allow-import-from-derivation = true;
 
   inputs = {
-    nixpkgs.url = "nixpkgs";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     hu-nixpkgs.url = "github:NixOS/nixpkgs/haskell-updates";
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
@@ -13,8 +13,8 @@
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    pre-commit-hooks-nix = {
-      url = "github:cachix/pre-commit-hooks.nix";
+    git-hooks-nix = {
+      url = "github:cachix/git-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     haskell-flake.url = "github:srid/haskell-flake";
@@ -25,7 +25,7 @@
     flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
         inputs.treefmt-nix.flakeModule
-        inputs.pre-commit-hooks-nix.flakeModule
+        inputs.git-hooks-nix.flakeModule
         inputs.haskell-flake.flakeModule
       ];
       systems = [
@@ -63,16 +63,18 @@
         in
         {
           treefmt.programs = {
-            # keep-sorted start
+            nixfmt.enable = true;
+            statix.enable = true;
 
             cabal-fmt.enable = true;
             fourmolu = {
               enable = true;
               package = hu-pkgs.haskell.packages.ghc912.fourmolu;
-              keep-sorted.enable = true;
-              nixfmt.enable = true;
             };
-            # keep-sorted end
+            # TODO: check idempotency is preserved even with 2 haskell formatters
+            stylish-haskell.enable = true;
+            keep-sorted.enable = true;
+
             # jsonfmt.enable = true;
             # just.enable = true;
           };
