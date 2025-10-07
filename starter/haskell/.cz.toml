@@ -1,3 +1,0 @@
-[tool.commitizen]
-version = "3.18.0"
-update-changelog-on-bump = true

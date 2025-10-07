@@ -1,3 +1,8 @@
 root = true
+[**]
+indent-style = space
+charset = utf-8
+end-of-line = lf
+trim-trailing-whitespace = true
 [**.hs]
 indent-size = 2
