@@ -30,10 +30,12 @@ version:         0.1.0.0
 -- description:
 
 -- The license under which the package is released.
-license:         BSD-3-Clause
+-- TODO: Choose a license 
+-- license:         
+-- BSD-3-Clause (haskell normal) -- GPLv3  (safer)
 
 -- The file containing the license text.
-license-file:    LICENSE
+-- license-file:    LICENSE
 
 -- The package author(s).
 author:          Eldritch Cookie
@@ -79,6 +81,7 @@ common deps
     QuantifiedConstraints
     ScopedTypeVariables
     TypeFamilyDependencies
+    UnicodeSyntax
 
   default-language:   GHC2024
 

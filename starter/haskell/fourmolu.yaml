@@ -1,4 +1,8 @@
+# this needs to be synced with the .editorconfig
 indentation: 2
 indent-wheres: true
+# Fun
+unicode: always
+# Haddock style
 haddock-style: single-line
 haddock-style-module: multi-line

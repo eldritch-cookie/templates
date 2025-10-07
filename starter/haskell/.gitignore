@@ -1,4 +1,7 @@
-dist-newstyle/
+# project specific 
 .direnv/
 .pre-commit-config.yaml
+# Haskell Specific
 *.tix
+## Cabal-install specific
+dist-newstyle/
