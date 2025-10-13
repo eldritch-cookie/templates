@@ -49,17 +49,14 @@
             otherOverlays = [ overlay ];
             autoWire = [
               "checks"
-              "devShells"
               "packages"
             ];
             devShell = {
               tools = hp: { inherit (hp) haskell-dap; };
-              mkShellArgs.shellHook = config.pre-commit.installationScript;
             };
             defaults.devShell.tools = hp: { inherit (hp) cabal-install haskell-language-server ghcide; };
           };
           id2 = self: super: { };
-          #hu-pkgs = import inputs.hu-nixpkgs { inherit system; };
         in
         {
           treefmt.programs = {
@@ -85,6 +82,11 @@
           };
           haskellProjects.ghc910 = hprojs pkgs.haskell.packages.ghc910 id2;
           haskellProjects.default = hprojs pkgs.haskell.packages.ghc912 id2;
+          devShells.default = pkgs.mkShell {
+            packages = [(pkgs.agda.withPackages (p: [p.standard-library]))]; # TODO: add agda2hs or remove haskell stuff
+            packagesFrom = [config.haskellProjects.default.outputs.devShell];
+            shellHook = config.pre-commit.installationScript;
+          };
         };
       flake = { };
     };

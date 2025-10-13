@@ -51,14 +51,21 @@
         };
       flake = {
         templates = {
-          default = {
-            path = ./starter/haskell;
+          default = self.templates.haskell;
+          haskell = {
+            path = ./flakes/haskell;
             description = "a template for a small haskell project";
           };
+          agda = {
+            path = ./flakes/agda;
+            description = 
+            "a template for a small agda project with haskell code";
+          };
           context = {
-            path = ./starter/context;
+            path = ./flakes/context;
             description = "a template for a small context project";
           };
+
         };
       };
     };
