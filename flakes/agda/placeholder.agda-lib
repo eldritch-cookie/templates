@@ -1,0 +1,8 @@
+-- name: 
+-- dependencies
+depend:
+  standard-library
+-- folders that contain
+include:
+  src
+-- flags:
