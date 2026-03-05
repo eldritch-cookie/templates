@@ -92,7 +92,7 @@
           haskellProjects.ghc910 = hprojs pkgs.haskell.packages.ghc910 id2;
           haskellProjects.default = hprojs pkgs.haskell.packages.ghc912 id2;
           devShells.default = pkgs.mkShell {
-            packages = [pkgs.agda]; # TODO: add agda2hs or remove haskell stuff
+            packages = [pkgs.haskellPackages.Agda]; # TODO: add agda2hs or remove haskell stuff
             packagesFrom = []; # [config.haskellProjects.default.outputs.devShell];
             shellHook = config.pre-commit.installationScript;
             AGDA_NIX_LIBS = inputs'.agda-utils.packages.agda-env.override {selector = p: with p;[standard-library];};
