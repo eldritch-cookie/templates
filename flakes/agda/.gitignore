@@ -1,0 +1,5 @@
+# for AGDA_DIR
+_deps/
+_build/
+# nix
+result

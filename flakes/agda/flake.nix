@@ -17,6 +17,11 @@
       url = "github:cachix/git-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    agda-utils ={
+      url = "git+https://codeberg.org/eldritch-cookie/agda-utils.git";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
+    };
     haskell-flake.url = "github:srid/haskell-flake";
   };
 
@@ -34,6 +39,11 @@
         "aarch64-darwin"
         "x86_64-darwin"
       ];
+      flake = {
+        lib = {
+          agda-selector = p:[p.standard-library];
+        };
+      };
       perSystem =
         {
           config,
@@ -63,15 +73,12 @@
             nixfmt.enable = true;
             statix.enable = true;
 
-            cabal-fmt.enable = true;
+            cabal-gild.enable = true;
             fourmolu = {
               enable = true;
               package = pkgs.haskell.packages.ghc912.fourmolu;
             };
             keep-sorted.enable = true;
-
-            # jsonfmt.enable = true;
-            # just.enable = true;
           };
           treefmt.projectRootFile = "flake.nix";
           pre-commit.settings = {
@@ -80,12 +87,15 @@
               editorconfig-checker.enable = true;
             };
           };
+          packages = {
+          };
           haskellProjects.ghc910 = hprojs pkgs.haskell.packages.ghc910 id2;
           haskellProjects.default = hprojs pkgs.haskell.packages.ghc912 id2;
           devShells.default = pkgs.mkShell {
-            packages = [(pkgs.agda.withPackages (p: [p.standard-library]))]; # TODO: add agda2hs or remove haskell stuff
-            packagesFrom = [config.haskellProjects.default.outputs.devShell];
+            packages = [pkgs.agda]; # TODO: add agda2hs or remove haskell stuff
+            packagesFrom = []; # [config.haskellProjects.default.outputs.devShell];
             shellHook = config.pre-commit.installationScript;
+            AGDA_NIX_LIBS = inputs'.agda-utils.packages.agda-env.override {selector = p: with p;[standard-library];};
           };
         };
       flake = { };
